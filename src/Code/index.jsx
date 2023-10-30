@@ -8,6 +8,7 @@ import { autocompletion, completionKeymap } from "@codemirror/autocomplete";
 import theme from './theme.json'
 const previewColor = theme.colors.surface1
 
+// 每个 sandpack 实例都需要 merge 这个file，用来设置 preview的基本样式
 const baseFiles = {
   '/__baseStyle.css': {
     code: `
