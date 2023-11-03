@@ -3,58 +3,17 @@ import {
   SandpackLayout,
   SandpackCodeEditor,
   SandpackPreview,
+  FileTabs,
 } from "@codesandbox/sandpack-react";
 import { autocompletion, completionKeymap } from "@codemirror/autocomplete";
-import theme from './theme.json'
+import { githubLight as lightTheme } from '@codesandbox/sandpack-themes'
+import darkTheme from './theme.json'
 import ActiveFile from './activeFile';
-
-const previewColor = theme.colors.surface1
-
-// 每个 sandpack 实例都需要 merge 这个file，用来设置 preview的基本样式
-const baseFiles = {
-  '/__baseStyle.css': {
-    code: `
-    :root {
-      font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-      line-height: 1.5;
-      font-weight: 400;
-    
-      color-scheme: light dark;
-      color: rgba(255, 255, 255, 0.87);
-      background-color: ${previewColor};
-    
-      font-synthesis: none;
-      text-rendering: optimizeLegibility;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-      -webkit-text-size-adjust: 100%;
-    }
-    
-    body {
-      margin: 0;
-    }
-    
-    @media (prefers-color-scheme: light) {
-      :root {
-        color: #213547;
-        background-color: #ffffff;
-      }
-      a:hover {
-        color: #747bff;
-      }
-      button {
-        background-color: #f9f9f9;
-      }
-    }
-    `,
-    readOnly: true,
-    active: false,
-    hidden: true
-  }
-}
+import { useTheme } from './useTheme'
+import { baseFiles as setupFile } from './baseFile'
 
 const files = {
-  ...baseFiles,
+  ...setupFile,
   '/App.js': `import './__baseStyle.css';
 import { useState } from 'react';
 function App() {
@@ -74,13 +33,15 @@ const Code = (props) => {
   const {
     children
   } = props
+
+  const { isDark } = useTheme()
+
   return (
-    <SandpackProvider template="react" files={files} theme={theme}>
+    <SandpackProvider template="react" files={files} theme={isDark ? darkTheme : lightTheme}>
       <SandpackLayout>
-        {!!children && children}
-        <ActiveFile />
+        <FileTabs className="q-file-tabs" />
         <SandpackCodeEditor
-          showTabs
+          showTabs={false}
           showLineNumbers={false}
           showInlineErrors
           wrapContent
