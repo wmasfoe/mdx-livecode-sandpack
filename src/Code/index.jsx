@@ -6,6 +6,8 @@ import {
 } from "@codesandbox/sandpack-react";
 import { autocompletion, completionKeymap } from "@codemirror/autocomplete";
 import theme from './theme.json'
+import ActiveFile from './activeFile';
+
 const previewColor = theme.colors.surface1
 
 // 每个 sandpack 实例都需要 merge 这个file，用来设置 preview的基本样式
@@ -68,22 +70,29 @@ export default App;`,
   '/utils.js': `export const add = (a, b) => a + b;`
 };
 
-const Code = () => (
-  <SandpackProvider template="react" files={files} theme={theme}>
-    <SandpackLayout>
-      <SandpackCodeEditor
-        showTabs
-        showLineNumbers={false}
-        showInlineErrors
-        wrapContent
-        closableTabs
-        showRunButton
-        extensions={[autocompletion()]}
-        extensionsKeymap={[completionKeymap]}
-      />
-      <SandpackPreview />
-    </SandpackLayout>
-  </SandpackProvider>
-);
+const Code = (props) => {
+  const {
+    children
+  } = props
+  return (
+    <SandpackProvider template="react" files={files} theme={theme}>
+      <SandpackLayout>
+        {!!children && children}
+        <ActiveFile />
+        <SandpackCodeEditor
+          showTabs
+          showLineNumbers={false}
+          showInlineErrors
+          wrapContent
+          closableTabs
+          showRunButton
+          extensions={[autocompletion()]}
+          extensionsKeymap={[completionKeymap]}
+        />
+        <SandpackPreview />
+      </SandpackLayout>
+    </SandpackProvider>
+  )
+};
 
 export default Code
