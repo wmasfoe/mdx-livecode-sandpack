@@ -1,0 +1,22 @@
+.q-file-tabs {
+  :global(.sp-tabs-scrollable-container) {
+    padding-inline: 6px 0px;
+    min-height: unset;
+  }
+
+  :global(.sp-tab-button) {
+    height: 32px;
+  }
+
+  :global(.sp-tab-button:not(:last-of-type)) {
+    border-right: 1px solid gray;
+  }
+}
+
+:global(.q-editor) {
+  font-size: 14px;
+}
+
+:global(.cm-lineNumbers) {
+  font-size: 1em !important;
+}

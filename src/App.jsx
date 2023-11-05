@@ -1,13 +1,11 @@
-import { Suspense, lazy } from 'react'
-
-const Code = lazy(() => import('./Code'));
+import Code from'./Code'
 
 function App() {
 
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <div style={{ padding: '10px' }}>
       <Code />
-    </Suspense>
+    </div>
   )
 }
 
