@@ -1,15 +1,21 @@
 .q-file-tabs {
+  --file-gap: #80808024;
+  --main-color: #14b8a6; 
   :global(.sp-tabs-scrollable-container) {
-    padding-inline: 6px 0px;
+    padding-inline: 0px;
     min-height: unset;
   }
 
   :global(.sp-tab-button) {
     height: 32px;
+    box-sizing: content-box;
+    &[data-active="true"] {
+      border-bottom: 2px solid var(--main-color);
+    }
   }
 
   :global(.sp-tab-button:not(:last-of-type)) {
-    border-right: 1px solid gray;
+    border-right: 1px solid var(--file-gap);
   }
 }
 
@@ -19,4 +25,10 @@
 
 :global(.cm-lineNumbers) {
   font-size: 1em !important;
+}
+
+.editor-header {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
 }

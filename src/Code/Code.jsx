@@ -41,7 +41,10 @@ const Code = (props) => {
   return (
     <SandpackProvider template="react" files={files} theme={isDark ? darkTheme : lightTheme}>
       <SandpackLayout>
-        <FileTabs className={styles['q-file-tabs']} />
+        <div className={styles['editor-header']}>
+          <FileTabs className={styles['q-file-tabs']} />
+          <UnstyledOpenInCodeSandboxButton>Fork</UnstyledOpenInCodeSandboxButton>
+        </div>
         <SandpackCodeEditor
           className={styles['q-editor']}
           showTabs={false}
@@ -53,7 +56,7 @@ const Code = (props) => {
           extensions={[autocompletion()]}
           extensionsKeymap={[completionKeymap]}
         />
-        <SandpackPreview />
+        <SandpackPreview showOpenInCodeSandbox={false} />
       </SandpackLayout>
     </SandpackProvider>
   )
